@@ -70,7 +70,7 @@ public class MatrixComputation {
     }
 
    public void foo() {
-      final List<String> l = new ArrayList<String>();
+      final List<String> l = new ArrayList<>();
       for (final String s : l) {
          System.out.println(s);
       }

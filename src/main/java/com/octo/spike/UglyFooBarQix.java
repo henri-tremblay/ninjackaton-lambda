@@ -9,25 +9,25 @@ public class UglyFooBarQix {
 	}
 
 	private static String fooBarQix(int i) {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		if(i %3 == 0)
-			result += "FOO";
+			result.append("FOO");
 		if(i %5 == 0)
-			result += "BAR";
+			result.append("BAR");
 		if(i %7 == 0)
-			result += "QIX";
+			result.append("QIX");
 		String integer = String.valueOf(i);
 		for (int j = 0; j < integer.length(); j++) {
 			char element = integer.charAt(j);
 			if(element == '3')
-				result += "FOO";
+				result.append("FOO");
 			if(element == '5')
-				result += "BAR";
+				result.append("BAR");
 			if(element == '7')
-				result += "QIX";
+				result.append("QIX");
 			
 		}
-		return result.isEmpty() ? integer : result;
+		return (result.length() == 0) ? integer : result.toString();
 	}
 
 }

@@ -20,19 +20,19 @@ public class TP {
         Arrays.asList(TP.class.getDeclaredMethods()).forEach(m -> System.out.println(m + " " + m.isBridge() + " " + m.isSynthetic()));
     }
     /**
-     * Ecrivez les dates des tweets sur la sortie standard
+     * Écrivez les dates des tweets sur la sortie standard
      */
     public static void step1() {
-        Tweet.TWEETS.forEach(t -> System.out.println(t.getDate()));
+        Tweet.TWEETS.forEach(t -> System.out.println(t.date()));
     }
 
     /**
-     * Faites la même chose, sans appeler getDate() ni System.out.println()
+     * Faites la même chose, sans appeler date() ni System.out.println()
      */
     public static void step2() {
         Tweet.TWEETS
              .stream()
-             .map(Tweet::getDate)
+             .map(Tweet::date)
              .forEach(System.out::println);
     }
 
@@ -42,7 +42,7 @@ public class TP {
     public static List<String> step3() {
         return Tweet.TWEETS
                     .stream()
-                    .map(Tweet::getSender)
+                    .map(Tweet::sender)
                     .collect(Collectors.toList());
     }
 
@@ -52,7 +52,7 @@ public class TP {
     public static List<String> step4() {
         return Tweet.TWEETS
                     .stream()
-                    .map(Tweet::getSender)
+                    .map(Tweet::sender)
                     .distinct()
                     .collect(Collectors.toList());
     }
@@ -63,7 +63,7 @@ public class TP {
     public static List<String> step5() {
         return Tweet.TWEETS
                      .stream()
-                     .map(Tweet::getSender)
+                     .map(Tweet::sender)
                      .distinct()
                      .sorted()
                      .collect(Collectors.toList());
@@ -86,8 +86,8 @@ public class TP {
         return Tweet.TWEETS
                     .stream()
 		              .filter(t -> t.containsHashTag("#lambda"))
-			           .sorted(Comparator.comparing(Tweet::getSender)
-                    .thenComparing(Tweet::getDate))
+			           .sorted(Comparator.comparing(Tweet::sender)
+                    .thenComparing(Tweet::date))
                     .collect(Collectors.toList());
     }
 
@@ -107,7 +107,7 @@ public class TP {
     public static Map<String, List<Tweet>> step9() {
         return Tweet.TWEETS
                     .stream()
-                    .collect(Collectors.groupingBy(Tweet::getSender, Collectors.toList()));
+                    .collect(Collectors.groupingBy(Tweet::sender, Collectors.toList()));
     }
 
     /**
@@ -128,34 +128,21 @@ public class TP {
         return stream.collect(collector);
     }
 
-//    public static <T, K, C extends Collection<T>, M extends Map<K, C>>
-//    Collector<T, M> groupingBy(Function<? super T, ? extends K> classifier,
-//                               Supplier<M> mapFactory,
-//                               Supplier<C> rowFactory)
-   public static class Stats {
-
-      private final int tweetCount;
-      private final int characterCount;
-
-      public Stats(int tweetCount, int characterCount) {
-         this.tweetCount = tweetCount;
-         this.characterCount = characterCount;
-      }
+   public record Stats(int tweetCount, int characterCount) {
 
       public Stats(Tweet tweet) {
-         this.tweetCount = 1;
-         this.characterCount = tweet.getText().length();
+         this(1, tweet.text().length());
       }
 
       public Stats withStats(Stats stats) {
          return new Stats(this.tweetCount + stats.tweetCount, this.characterCount + stats.characterCount);
       }
 
-      public int getAverage() {
+      public int average() {
          return tweetCount == 0 ? 0 : (characterCount / tweetCount);
       }
 
-      public int getTotal() {
+      public int total() {
          return characterCount;
       }
    }
@@ -170,16 +157,16 @@ public class TP {
        return Tweet.TWEETS
           .stream()
           .map(Stats::new)
-          .reduce(new Stats(0, 0), (t1, t2) -> t1.withStats(t2));
+          .reduce(new Stats(0, 0), Stats::withStats);
     }
 
    /**
-    * Faites la même chose, mais de manière parrallèle
+    * Faites la même chose, mais de manière parallèle
     */
    public static Stats step12() {
       return Tweet.TWEETS
          .parallelStream()
          .map(Stats::new)
-         .reduce(new Stats(0, 0), (t1, t2) -> t1.withStats(t2));
+         .reduce(new Stats(0, 0), Stats::withStats);
    }
 }

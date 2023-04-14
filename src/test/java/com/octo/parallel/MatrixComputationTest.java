@@ -1,14 +1,14 @@
 package com.octo.parallel;
 
-import org.junit.Test;
+import org.assertj.core.data.Offset;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Henri Tremblay
  */
-public class MatrixComputationTest {
+class MatrixComputationTest {
 
     double[][] matA = new double[][] {
             {0,1,2},
@@ -29,20 +29,20 @@ public class MatrixComputationTest {
      * @throws Exception
      */
     @Test
-    public void testMatrixMultiplication() throws Exception {
+    void testMatrixMultiplication() throws Exception {
         double[][] actual = MatrixComputation.matrixMultiplication(matA, matB);
         checkResult(actual);
     }
 
     @Test
-    public void testParallelMatrixMultiplication() throws Exception {
+    void testParallelMatrixMultiplication() throws Exception {
         double[][] actual = MatrixComputation.parallelMatrixMultiplication(matA, matB);
         checkResult(actual);
     }
 
     private void checkResult(double[][] actual) {
         for (int i = 0; i < actual.length; i++) {
-            assertArrayEquals(expected[i], actual[i], 0.1);
+            assertThat(actual[i]).containsExactly(expected[i], Offset.offset(0.1));
         }
     }
 }

@@ -1,79 +1,85 @@
 package com.octo.spike;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class FooBarQixTest {
+class FooBarQixTest {
 
 
     private final LambdaFooBarQix fooBar = new LambdaFooBarQix();
 
-    @Test public void should_return_BAR() {
-        String bar = fooBar.charToCode('5');
-        assertEquals("BAR", bar);
+    @Test
+	void should_return_BAR() {
+        String bar = LambdaFooBarQix.charToCode('5');
+        assertThat(bar).isEqualTo("BAR");
     }
 
-    @Test public void should_return_null() {
-        String bar = fooBar.charToCode('1');
-        assertNull(bar);
+    @Test
+	void should_return_null() {
+        String bar = LambdaFooBarQix.charToCode('1');
+        assertThat(bar).isNull();
     }
 
-    @Test public void should_return_number() {
+    @Test
+	void should_return_number() {
         // When
 		String result = fooBar.translate(1);
 		
 		// Then
-		assertEquals("1", result);
+		assertThat(result).isEqualTo("1");
 	}
 
-	@Test public void should_return_foo() {
+	@Test
+	void should_return_foo() {
 		// When
 		String result = fooBar.translate(3);
 		
 		// Then
-		assertEquals("FOOFOO" ,result);
+		assertThat(result).isEqualTo("FOOFOO");
 	}
 	
-	@Test public void should_return_bar() {
+	@Test
+	void should_return_bar() {
 		// When
 		String result = fooBar.translate(5);
 		
 		// Then
-		assertEquals("BARBAR" ,result);
+		assertThat(result).isEqualTo("BARBAR");
 	}
 	
-	@Test public void should_return_qix() {
+	@Test
+	void should_return_qix() {
 		// When
 		String result = fooBar.translate(7);
 		
 		// Then
-		assertEquals("QIXQIX" ,result);
+		assertThat(result).isEqualTo("QIXQIX");
 	}
 
-	@Test public void should_return_foobar() {
+	@Test
+	void should_return_foobar() {
 		// When
 		String result = fooBar.translate(15);
 		
 		// Then
-		assertEquals("FOOBARBAR" ,result);
+		assertThat(result).isEqualTo("FOOBARBAR");
 	}
 	
-	@Test public void should_return_fooqix() {
+	@Test
+	void should_return_fooqix() {
 		// When
 		String result = fooBar.translate(21);
 		
 		// Then
-		assertEquals("FOOQIX" ,result);
+		assertThat(result).isEqualTo("FOOQIX");
 	}
 	
-	@Test public void should_return_bar_qix_foo_bar() {
+	@Test  void should_return_bar_qix_foo_bar() {
 		// When
 		String result = fooBar.translate(35);
 		
 		// Then
-		assertEquals("BARQIXFOOBAR" ,result);
+		assertThat(result).isEqualTo("BARQIXFOOBAR");
 	}
 }

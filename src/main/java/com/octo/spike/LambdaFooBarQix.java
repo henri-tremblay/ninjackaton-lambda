@@ -23,9 +23,9 @@ public class LambdaFooBarQix {
 
     public String translate(int value) {
         final SortedSet<Integer> integers = codes.navigableKeySet();
-        List<String> result = integers.stream().filter(i -> value % i == 0).map(i -> codes.get(i)).collect(Collectors.<String>toList());
+        List<String> result = integers.stream().filter(i -> value % i == 0).map(codes::get).collect(Collectors.<String>toList());
         String charValue = Integer.toString(value);
-        result.addAll(charValue.chars().mapToObj(LambdaFooBarQix::charToCode).filter(Objects::nonNull).collect(Collectors.<String>toList()));
+        result.addAll(charValue.chars().mapToObj(LambdaFooBarQix::charToCode).filter(Objects::nonNull).toList());
         return (result.isEmpty() ? charValue : result.stream().reduce("", String::concat));
     }
 
