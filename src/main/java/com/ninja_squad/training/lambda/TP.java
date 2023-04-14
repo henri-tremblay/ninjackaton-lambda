@@ -1,8 +1,10 @@
 package com.ninja_squad.training.lambda;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Le TP Lambda
@@ -18,7 +20,7 @@ public class TP {
     }
 
     /**
-     * Faites la même chose, sans appeler getDate() ni System.out.println()
+     * Faites la même chose, sans appeler date() ni System.out.println()
      */
     public static void step2() {
         // TODO
@@ -90,7 +92,7 @@ public class TP {
 
     /**
      * Calculez le total du nombre de caractères des textes des tweets.
-     * Hints:
+     * Indice:
      *     Utilisez un {@link java.util.stream.IntStream}
      */
     public static int step11() {
@@ -100,7 +102,7 @@ public class TP {
 
     /**
      * Calculez la moyenne du nombre de caractères des textes des tweets.
-     * Hints:
+     * Indice:
      *     Utilisez un {@link java.util.stream.IntStream}
      */
     public static int step12() {
@@ -110,7 +112,7 @@ public class TP {
 
     /**
      * Même chose, mais en calculant manuellement la somme.
-     * Hints:
+     * Indice:
      *     Utilisez stream.collect(..., ..., ...) ou stream.map(...).reduce(...)
      */
     public static int step13() {
