@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
  */
 public record Tweet(Long id, String sender, String text, LocalDateTime date, int retweetCount) {
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
     /**
      * The list of tweets to play with
      */
@@ -48,8 +50,6 @@ public record Tweet(Long id, String sender, String text, LocalDateTime date, int
                     "Oh Nooooo! I want #lambda now! #suicide",
                     date("15/01/2012 22:00"),
                     0));
-
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     private static LocalDateTime date(String s) {
         return LocalDateTime.parse(s, formatter);
