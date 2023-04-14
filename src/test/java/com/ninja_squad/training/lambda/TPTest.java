@@ -1,6 +1,5 @@
 package com.ninja_squad.training.lambda;
 
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -26,13 +25,19 @@ class TPTest {
                 @Override
                 public void println(Object o) {
                     super.println(o);
-                    original.println(o);
                 }
             };
             System.setOut(out);
             block.run();
             String s = baos.toString();
-            assertThat(s).startsWith("Thu Jan 12");
+            assertThat(s).isEqualTo("""
+                    2012-01-12T10:00
+                    2012-01-12T11:00
+                    2012-01-12T12:00
+                    2012-01-13T14:00
+                    2012-01-14T18:00
+                    2012-01-15T22:00
+                    """);
         }
         finally {
             System.setOut(original);
@@ -138,11 +143,11 @@ class TPTest {
 
     @Test
     public void step13() {
-        assertThat(TP.step13()).isEqualTo(188);
+        assertThat(TP.step13()).isEqualTo(31);
     }
 
     @Test
     public void step14() {
-        assertThat(TP.step14()).isEqualTo(188);
+        assertThat(TP.step14()).isEqualTo(31);
     }
 }
