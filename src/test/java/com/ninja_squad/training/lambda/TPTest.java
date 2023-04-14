@@ -127,21 +127,22 @@ class TPTest {
     }
 
     @Test
-    void step11() {
-        TP.Stats stats = TP.step11();
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(stats.average()).isEqualTo(31);
-        softly.assertThat(stats.total()).isEqualTo(188);
-        softly.assertAll();
+    public void step11() {
+        assertThat(TP.step11()).isEqualTo(188);
     }
 
+    @Test
+    public void step12() {
+        assertThat(TP.step12()).isEqualTo(31);
+    }
 
     @Test
-    void step12() {
-        TP.Stats stats = TP.step12();
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(stats.average()).isEqualTo(31);
-        softly.assertThat(stats.total()).isEqualTo(188);
-        softly.assertAll();
+    public void step13() {
+        assertThat(TP.step13()).isEqualTo(188);
+    }
+
+    @Test
+    public void step14() {
+        assertThat(TP.step14()).isEqualTo(188);
     }
 }
