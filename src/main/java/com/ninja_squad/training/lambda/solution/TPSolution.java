@@ -123,7 +123,7 @@ public class TPSolution {
         return (int) Tweet.TWEETS.stream()
                 .map(Tweet::text)
                 .mapToInt(String::length)
-                .average().getAsDouble();
+                .average().orElseThrow();
     }
 
     /**

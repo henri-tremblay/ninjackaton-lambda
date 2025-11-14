@@ -3,6 +3,7 @@ package com.ninja_squad.training.lambda;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
 import java.util.List;
@@ -19,14 +20,9 @@ class TPTest {
 
     private void executeWithWrappedSysout(Runnable block) {
         PrintStream original = System.out;
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            PrintStream out = new PrintStream(baos) {
-                @Override
-                public void println(Object o) {
-                    super.println(o);
-                }
-            };
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+             PrintStream out = new PrintStream(baos)) {
+
             System.setOut(out);
             block.run();
             String s = baos.toString();
@@ -38,8 +34,9 @@ class TPTest {
                     2012-01-14T18:00
                     2012-01-15T22:00
                     """);
-        }
-        finally {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
             System.setOut(original);
         }
     }
